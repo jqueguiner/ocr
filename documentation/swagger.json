@@ -1,0 +1,99 @@
+{
+  "openapi":"3.0.1",
+  "info":{
+    "description":"Optical Character Recognition (OCR) will extract text from the provide image",
+    "title":"Optical Character Recognition",
+    "version":"1.0.0"
+  },
+  "tags":[
+    {
+      "name":"detect",
+      "description":"Detect and extract the text in the provided image"
+    }
+  ],
+  "paths":{
+    "/detect":{
+      "post":{
+        "security":[
+          {
+            "apikey":[
+
+            ]
+          }
+        ],
+        "tags":[
+          "detect"
+        ],
+        "summary":"Detect and extract the text in the provided image",
+        "description":"Detect and extract the text in the provided image",
+        "operationId":"detect",
+        "responses":{
+          "401":{
+            "description":"Unauthorized"
+          },
+          "200":{
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "$ref":"#/components/schemas/Response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody":{
+          "description":"Detect and extract the text in the provided image",
+          "required":true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "$ref":"#/components/schemas/Body"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components":{
+    "securitySchemes":{
+      "apikey":{
+        "type":"apiKey",
+        "name":"X-OVH-Api-Key",
+        "in":"header"
+      }
+    },
+    "schemas":{
+      "Body":{
+        "type":"object",
+        "required":[
+          "url"
+        ],
+        "properties":{
+          "url":{
+            "type":"string",
+            "example":"https://i.ibb.co/TwWWp22/input.jpg"
+          }
+        }
+      },
+      "Response":{
+        "type":"object",
+        "properties":{
+          "default":{
+            "type":"string",
+            "description":"No special image treatment done before OCR",
+            "example":"APOLLO 13 MISSION COMMENTARY 4-12-70 CST $:04P GET 27:51 85/1\n\nse Hello Houston, Apollo 13.\nCAPCOM 13, Houston. Go ahead.\nsc Just a passing comment Joe, we're having lunch\n\nright now and I just made myself a hot dog sandwich with\ncatsup. Very tasty and almost unheard of in the old days.\n\nCAPCOM that\u2019s correct 13, As I recall the flight\nplan, you're suppose to put mustard on the hot dogs and not\ncatsup but I guess we'll overlook that.\n\nsc We blew it.\n\nsc Right.\n\nCAPCOM How's everything going?\n\nsc About pretty good. We have about 4 different\nmethods of spreading catsup, right nov.\n\nCAPCOM = Okay, Jack. We'll have your update to you\nbefore too long.\n\nsc Okay, fine Joe. We did a pit check on the\nHycon camera and everything works okay.\n\nCAPCOM Okay. Beautiful. We don't have anything else\n\nfor you at the moment.\n\nEND OF TAPE"
+          },
+          "denoising":{
+            "type":"string",
+            "description":"Denoising image before OCR",
+            "example":"APOLLO 13 MISSION COMMERTARY 4-12-70 CST S:04P CET 27:51 85/1\n\nsc Hello Houston, Apollc 13.\nCAPCOM 13, Houaton. Go ahead.\nsc Just a pausing comeent Joe, we're having lunch\n\n   \n\nright nov and I just aade eyself a hot dog sandvich vith\ncatsup. ry Canty and aleost unheard of in the old days.\n\nCAPCOM = That'a correct 13, Aw I recall the flight\nplan, you're suppose to put avetard oo the hot dogs and not\ncatsup but 1 guesa ve'll overlook thar.\n\n   \n\n \n\nse We blew te.\n\nsce Right.\n\nCAPCOM == How's everything going?\n\nsc About pretty good, Se have about 4 dt fferent\neethods of spreading catsup, right now.\n\nCAPCOM = Okay, Jack. LL Nave your update to you\nbefore too lone.\n\nse Okay, fine Joe, ie did # pit check on the\nNycon camera and everything works okay.\n\nCAPCOM Okay. Beautitul. We don't have anything elac\n\nfor you at the eooent.\n\nEND OF TAPE"
+          }
+        }
+      }
+    }
+  }
+}
